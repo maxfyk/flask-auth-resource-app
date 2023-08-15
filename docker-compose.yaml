@@ -1,0 +1,8 @@
+version: '3'
+services:
+  auth_server:
+    build: ./auth_server
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./auth_server/db.json:/app/db.json

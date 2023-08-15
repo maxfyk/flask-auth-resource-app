@@ -1,0 +1,22 @@
+{
+  "_comment": "I used hardcoded users for simplicity :)",
+  "users": {
+    "admin": {
+      "username": "admin",
+      "password": "1407eb6a8d46b8b1ecff7717b76a1390",
+      "token": null,
+      "roles": [
+        "admin",
+        "user"
+      ]
+    },
+    "smileyface21": {
+      "username": "smileyface21",
+      "password": "b8d75d010ca1acfae3eb5aa0c6d3984a",
+      "token": null,
+      "roles": [
+        "user"
+      ]
+    }
+  }
+}
