@@ -1,0 +1,2 @@
+SECRET_KEY='flask-auth-resource-app-secret'
+AUTH_SERVER_URL='http://localhost:5000'
