@@ -8,8 +8,9 @@ load_dotenv('.resource-env')
 
 app = Flask(__name__)
 
-# Replace with the actual Auth Server URL
-AUTH_SERVER_URL = os.getenv('AUTH_SERVER_URL')
+AUTH_SERVER_URL = os.getenv('AUTH_SERVER_URL_DOCKER')
+if not AUTH_SERVER_URL:
+    AUTH_SERVER_URL = os.getenv('AUTH_SERVER_URL_LOCAL')
 
 
 def validate_access_token(access_token: str) -> bool:

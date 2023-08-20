@@ -4,7 +4,7 @@
         "admin": {
             "username": "admin",
             "password": "1407eb6a8d46b8b1ecff7717b76a1390",
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY5MjU2MTU1NX0.7P2BiIQ3OwCXYKTANtHGp47JsL1rgHdyeJBF8W0UXfE",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY5MjU2NDI0MH0.H5a76KXMFZ5nWoHQ01-gwVD2m4I5v9a-x6L8ojBOtwk",
             "roles": [
                 "admin",
                 "user"
