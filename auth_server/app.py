@@ -13,7 +13,10 @@ load_dotenv('.auth-env')
 app = Flask(__name__)
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-ALLOWED_VERIFICATION_HOST = os.getenv('ALLOWED_VERIFICATION_HOST')
+ALLOWED_VERIFICATION_HOSTS = (
+    os.getenv('ALLOWED_VERIFICATION_HOST_LOCAL'),
+    os.getenv('ALLOWED_VERIFICATION_HOST_DOCKER')
+)
 
 DB = load_db()
 
@@ -64,7 +67,7 @@ def verify_token():
     If the token is valid, it returns a success response; otherwise, it returns an error response.
     """
     # Check if the request is coming from the Resource API (localhost:5000)
-    if request.remote_addr != ALLOWED_VERIFICATION_HOST:
+    if request.remote_addr not in ALLOWED_VERIFICATION_HOSTS:
         print('Unauthorized, 401')
         return jsonify({'message': 'Unauthorized', 'valid': False}), 401
 
