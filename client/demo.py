@@ -1,6 +1,7 @@
 import requests
 
 AUTH_SERVER_URL = 'http://localhost:5001'
+RESOURCE_API_URL = 'http://localhost:5000'
 
 
 def get_access_token(username: str, password: str) -> [str, bool]:
@@ -17,6 +18,21 @@ def get_access_token(username: str, password: str) -> [str, bool]:
     return data['access_token']
 
 
+def get_data(access_token: str) -> [str, bool]:
+    response = requests.post(
+        f'{RESOURCE_API_URL}/get_data',
+        json={'access_token': access_token}
+    )
+
+    data = response.json()
+    print(data)
+    if not data['success']:
+        print(response.status_code, data['message'])
+        return False
+
+    return data['secret_data']
+
+
 def main(username, password):
     # Get an access token
     access_token = get_access_token(username, password)
@@ -25,11 +41,16 @@ def main(username, password):
         return
 
     print('Authorization successful!')
-    print(f'Access token: {access_token}')
+    print(f'Access token: {access_token}\n')
 
-    # Make a request to the protected service
-    # response = client.get_data()
-    # print(response)
+    # Use the access token to get the secret data
+    secret_data = get_data(access_token)
+    if not secret_data:
+        print('Failed to get the secret data...')
+        return
+
+    print('Successfully retrieved the secret data!')
+    print(f'Data: {secret_data}')
 
 
 if __name__ == '__main__':
