@@ -14,7 +14,6 @@ app = Flask(__name__)
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALLOWED_VERIFICATION_HOST = os.getenv('ALLOWED_VERIFICATION_HOST')
-ALLOWED_VERIFICATION_PORT = os.getenv('ALLOWED_VERIFICATION_PORT')
 
 DB = load_db()
 
@@ -38,12 +37,11 @@ def authorize():
     password = hashlib.md5(password.encode()).hexdigest()
 
     user = DB['users'].get(username)
-    print(DB['users'])
     if user and DB['users'][username]['password'] == password:
         # Generate an access token and save it in the database
         payload = {
             'sub': username,
-            'exp': str(datetime.datetime.utcnow() + datetime.timedelta(minutes=30))
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=36)
         }
         access_token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
@@ -66,8 +64,7 @@ def verify_token():
     If the token is valid, it returns a success response; otherwise, it returns an error response.
     """
     # Check if the request is coming from the Resource API (localhost:5000)
-    if request.remote_addr != ALLOWED_VERIFICATION_HOST \
-            or request.environ['REMOTE_PORT'] != ALLOWED_VERIFICATION_PORT:
+    if request.remote_addr != ALLOWED_VERIFICATION_HOST:
         print('Unauthorized, 401')
         return jsonify({'message': 'Unauthorized', 'valid': False}), 401
 
@@ -80,15 +77,16 @@ def verify_token():
 
     try:
         # Verify the access token's signature using the SECRET_KEY
-        jwt.decode(access_token, SECRET_KEY, algorithms=['HS256'])
+        jwt.decode(access_token, SECRET_KEY, algorithms='HS256')
         print('Access token is valid, 200')
-        return jsonify({'valid': True}), 200
+        return jsonify({'valid': True})
 
     except jwt.ExpiredSignatureError:
         print('Access token has expired, 401')
         return jsonify({'message': 'Access token has expired', 'valid': False}), 401
 
     except jwt.DecodeError:
+        # print full traceback in case of an error
         print('Invalid access token, 401')
         return jsonify({'message': 'Invalid access token', 'valid': False}), 401
 
