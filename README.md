@@ -16,21 +16,6 @@ Docker Compose is used to run the auth server and resource API in isolated conta
 
 ## Usage
 
-To start the servers with Docker Compose, run:
-
-```
-docker-compose up --build -d
-```
-
-Then you can execute the demo client script
-
-```
-python client/demo.py
-```
-You're right, I should include instructions for running the servers and client locally without Docker. Here is an updated Usage section:
-
-## Usage
-
 ### With Docker 
 
 To start the servers and demo client with Docker:
@@ -39,7 +24,7 @@ To start the servers and demo client with Docker:
 docker-compose up
 ```
 
-The client demo will not run automatically. You have to execute it separately:
+Then you can execute the demo client script:
 
 ```
 python client/demo.py
