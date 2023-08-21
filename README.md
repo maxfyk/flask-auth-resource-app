@@ -27,8 +27,58 @@ Then you can execute the demo client script
 ```
 python client/demo.py
 ```
+You're right, I should include instructions for running the servers and client locally without Docker. Here is an updated Usage section:
+
+## Usage
+
+### With Docker 
+
+To start the servers and demo client with Docker:
+
+```
+docker-compose up
+```
+
+The client demo will not run automatically. You have to execute it separately:
+
+```
+python client/demo.py
+```
 
 The client will authenticate with the auth server and retrieve data from the resource API.
+
+### Running Locally
+
+You can also run the servers and client without Docker.
+
+Ensure Python 3.8+ and pip are installed. 
+
+Install requirements in each folder:
+
+```
+pip install -r requirements.txt
+```
+
+Start the auth server:
+
+```
+cd auth_server
+python app.py
+```
+
+Start the resource API: 
+
+```
+cd resource_api
+python app.py 
+```
+
+Run the client demo:
+
+```
+cd client 
+python demo.py
+```
 
 ## Authentication Flow
 
